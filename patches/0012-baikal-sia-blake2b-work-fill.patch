@@ -1,0 +1,48 @@
+From: Paige Hearn <hearnpaige01>
+Date: Sun, 6 Sep 2026 18:47:00 -0500
+Subject: [PATCH] baikal: explicit Sia/Blake2b work fill and AlphaPool notes
+
+Sia/Decred in baikal_update_work set count = 0 then fell through
+the default case to count = 4. That happens to keep boards fed,
+but a later break would starve Blake2b work.
+
+- Give ALGO_SIA and ALGO_DECRED an explicit prefill of 4 jobs
+- Keep warehouse clock at BAIKAL_CLK_DEF (400); do not raise it here
+- AlphaPool Knots BLAKE2b: use port 7777 for Sia-firmware ASICs
+  (BK-B, A3, iBeLink). Port 5555 is Goldshell-style.
+
+Applies on top of Blakestream-GaintB patches 0001-0011, against
+cod3gen/sgminer-baikal (dev). Line numbers may need fuzz.
+---
+ driver-baikalu.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/driver-baikalu.c b/driver-baikalu.c
+index 0000000..0000001 100644
+--- a/driver-baikalu.c
++++ b/driver-baikalu.c
+@@ -871,16 +871,22 @@ static void baikal_update_work(struct cgpu_info *baikal)
+     if (baikal->miner_id == 0) {
+         switch(baikal->algorithm.type) {
+         case ALGO_CRYPTONIGHT:
+         case ALGO_CRYPTONIGHT_LITE:
+             count = 1;
+             break;
+         case ALGO_SIA:
+         case ALGO_DECRED:
+-            count = 0;
++            /* Sia/Blake2b and Decred: keep the work FIFO primed.
++             * Upstream set count = 0 and fell through to default (4).
++             * Make that explicit so a future break cannot starve boards.
++             * AlphaPool BTCB2b: usN.alphapool.tech:7777 for this firmware. */
++            count = 4;
++            break;
+         default:
+             count = 4;
++            break;
+         }
+ 
+         for (i = 0; i < info->miner_count; i++) {
+             miner = &info->miners[i];
+-- 
+2.43.0
