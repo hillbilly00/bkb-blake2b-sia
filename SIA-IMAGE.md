@@ -13,11 +13,13 @@ Port 5555 is for Goldshell-style clients. Do not use it on the BK-B.
 
 ## Published image (no custom rebuild)
 
-Use published Blakestream v2.1:
+Use published Blakestream BKB v2.1:
 
-    https://bootstrap.blakestream.io/firmware/Blakestream-GaintB-v2.1.img.xz
+    https://bootstrap.blakestream.io/firmware/Blakestream-BKB-v2.1.img.xz
 
 Flash with Balena Etcher. Keep a copy of factory PiZero_GB_180105_V1.0.img.
+
+Do not use the Giant-B / GaintB image URL on a BK-B.
 
 ## Build a new image with patch 0012 (Ubuntu box)
 
@@ -40,7 +42,7 @@ binary on a modern x86 host and copy it to the Pi.
         DEBIAN_FRONTEND=noninteractive apt-get update -qq
         DEBIAN_FRONTEND=noninteractive apt-get install -y -qq \
           sed coreutils build-essential autoconf automake libtool pkg-config \
-          libcurl4-openssl-dev libudev-dev libusb-1.0-0-dev libjansson-dev \
+          libcurl4-openssl-dev libudev-dev libusb-1.0-dev libjansson-dev \
           libncurses5-dev libssl-dev
         cd /src
         make CFLAGS="-g -O1 -Wall -DTRUE=1 -DFALSE=0"

@@ -4,6 +4,10 @@ Notes and a small sgminer patch for a warehouse-rented **Baikal BK-B** on Blake2
 
 This is **not** a replacement for [SidGrip/Blakestream-Baikal-BKB](https://github.com/SidGrip/Blakestream-Baikal-BKB). Firmware stays GPLv3; credit SidGrip / Blakestream and `cod3gen/sgminer-baikal`.
 
+Published BK-B image (not Giant-B):
+
+    https://bootstrap.blakestream.io/firmware/Blakestream-BKB-v2.1.img.xz
+
 ## Renters: use port 7777
 
 AlphaPool default `us1.alphapool.tech:5555` is for Goldshell-style clients.
@@ -29,7 +33,7 @@ Keep **400 MHz**. Do not overclock for rental "max pay." Extra MHz in a warehous
 | File | What |
 | --- | --- |
 | `RENTAL.md` | Paste-ready Mining Rig Rentals listing text |
-| `SIA-IMAGE.md` | How to flash Blakestream v2.1 or rebuild `sgminer` |
+| `SIA-IMAGE.md` | How to flash Blakestream BKB v2.1 or rebuild `sgminer` |
 | `patches/0012-baikal-sia-blake2b-work-fill.patch` | Explicit Sia work-FIFO fill (apply on top of Blakestream 0001–0011) |
 
 `0012` does **not** make port 5555 work. The pool split those ports on purpose.
