@@ -42,7 +42,7 @@ binary on a modern x86 host and copy it to the Pi.
         DEBIAN_FRONTEND=noninteractive apt-get update -qq
         DEBIAN_FRONTEND=noninteractive apt-get install -y -qq \
           sed coreutils build-essential autoconf automake libtool pkg-config \
-          libcurl4-openssl-dev libudev-dev libusb-1.0-dev libjansson-dev \
+          libcurl4-openssl-dev libudev-dev libusb-1.0-0-dev libjansson-dev \
           libncurses5-dev libssl-dev
         cd /src
         make CFLAGS="-g -O1 -Wall -DTRUE=1 -DFALSE=0"
